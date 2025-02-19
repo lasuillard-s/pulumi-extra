@@ -1,3 +1,4 @@
+# noqa: D100
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, overload
@@ -41,7 +42,5 @@ def render_template(
     if context is None and inputs is not None:
         return pulumi.Output.all(inputs).apply(lambda args: template.render(args[0]))
 
-    msg = (
-        "Either context or input must be provided." + str(context) + ", " + str(inputs)
-    )
+    msg = "Either context or input must be provided." + str(context) + ", " + str(inputs)
     raise ValueError(msg)

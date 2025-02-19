@@ -1,3 +1,4 @@
+# noqa: D100
 import pulumi_policy as policy
 
 from pulumi_extra.contrib.aws import is_aws_resource, is_taggable

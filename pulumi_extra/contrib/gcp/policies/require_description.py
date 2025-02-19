@@ -1,3 +1,4 @@
+# noqa: D100
 import pulumi_policy as policy
 
 from pulumi_extra import resource_has_attribute
@@ -22,9 +23,7 @@ class RequireDescription:
             description_label_key: The label key to use for description.
 
         """
-        self.require_label_if_description_unsupported = (
-            require_label_if_description_unsupported
-        )
+        self.require_label_if_description_unsupported = require_label_if_description_unsupported
         self.description_label_key = description_label_key
 
     def __call__(  # noqa: D102
@@ -35,10 +34,7 @@ class RequireDescription:
         if not is_gcp_resource(args.resource_type):
             return
 
-        if (
-            resource_has_attribute(args.resource_type, "description")
-            and args.props.get("description") is None
-        ):
+        if resource_has_attribute(args.resource_type, "description") and args.props.get("description") is None:
             report_violation(
                 f"Resource '{args.urn}' is missing required description",
                 None,

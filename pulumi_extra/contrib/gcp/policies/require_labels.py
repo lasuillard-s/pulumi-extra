@@ -1,3 +1,4 @@
+# noqa: D100
 import pulumi_policy as policy
 
 from pulumi_extra.contrib.gcp import is_gcp_resource, is_labelable
