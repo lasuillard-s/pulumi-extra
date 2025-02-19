@@ -33,19 +33,19 @@ def get_stack_reference(ref: str) -> pulumi.StackReference:
 
 def _resolve_stack_ref(ref: str) -> str:
     components = ref.split("/")
-    match len(components):
-        case 1:
-            org = pulumi.get_organization()
-            project = pulumi.get_project()
-            fqr = f"{org}/{project}/{ref}"
-        case 2:
-            org = pulumi.get_organization()
-            fqr = f"{org}/{ref}"
-        case 3:
-            fqr = ref
-        case _:
-            msg = f"Invalid stack reference: {ref!r}"
-            raise ValueError(msg)
+    num_components = len(components)
+    if num_components == 1:
+        org = pulumi.get_organization()
+        project = pulumi.get_project()
+        fqr = f"{org}/{project}/{ref}"
+    elif num_components == 2:  # noqa: PLR2004
+        org = pulumi.get_organization()
+        fqr = f"{org}/{ref}"
+    elif num_components == 3:  # noqa: PLR2004
+        fqr = ref
+    else:
+        msg = f"Invalid stack reference: {ref!r}"
+        raise ValueError(msg)
 
     return fqr
 
@@ -86,14 +86,14 @@ def get_stack_outputs(  # type: ignore[misc]
 
 def _resolve_output_ref(ref: str) -> tuple[str, str]:
     components = ref.split(":")
-    match len(components):
-        case 1:
-            stack_ref = components[0]
-            output_key = "output"
-        case 2:
-            stack_ref, output_key = components
-        case _:
-            msg = f"Invalid output reference: {ref!r}"
-            raise ValueError(msg)
+    num_components = len(components)
+    if num_components == 1:
+        stack_ref = components[0]
+        output_key = "output"
+    elif num_components == 2:  # noqa: PLR2004
+        stack_ref, output_key = components
+    else:
+        msg = f"Invalid output reference: {ref!r}"
+        raise ValueError(msg)
 
     return stack_ref, output_key
