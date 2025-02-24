@@ -1,6 +1,6 @@
+from .output import render_template
 from .resource_ import get_resource_cls, resource_has_attribute
-from .shortcuts import get_stack_outputs, get_stack_reference
-from .template import render_template
+from .stack_reference import get_stack_outputs, get_stack_reference
 from .transforms import (
     override_default_provider,
     override_invoke,

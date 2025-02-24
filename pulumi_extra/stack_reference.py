@@ -1,4 +1,4 @@
-"""Shortcuts for Pulumi boilerplate code."""
+"""Utils for stack references."""
 
 from __future__ import annotations
 

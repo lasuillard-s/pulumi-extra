@@ -1,4 +1,5 @@
-# noqa: D100
+"""Utils for outputs."""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, overload
@@ -35,7 +36,11 @@ def render_template(
     inputs: Mapping[str, pulumi.Input[Any]] | None = None,
 ) -> str | pulumi.Output[str]:
     """Render a template file with the given context."""
-    template = Template(template_file.read_text(), undefined=StrictUndefined)
+    template = Template(
+        template_file.read_text(),
+        undefined=StrictUndefined,
+    )
+
     if context is not None and inputs is None:
         return template.render(context)
 
