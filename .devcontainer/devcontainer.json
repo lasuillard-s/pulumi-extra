@@ -1,8 +1,17 @@
 {
   "name": "lasuillard/pulumi-extra",
-  "image": "mcr.microsoft.com/devcontainers/base:1-bookworm",
+  "dockerComposeFile": [
+    "./docker-compose.devcontainer.yaml"
+  ],
+  "runServices": [
+    "workspace"
+  ],
+  "service": "workspace",
+  "overrideCommand": true,
+  "workspaceFolder": "/workspaces/pulumi-extra",
   "features": {
-    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "onCreateCommand": "./.devcontainer/onCreateCommand.sh",
   "postAttachCommand": "make install",
