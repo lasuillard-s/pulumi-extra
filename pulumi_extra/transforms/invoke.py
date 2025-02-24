@@ -8,12 +8,12 @@ from __future__ import annotations
 
 from fnmatch import fnmatch
 from itertools import chain
-from typing import Any, Callable, cast
+from typing import TYPE_CHECKING, Any, Callable
 
 import pulumi
 from braceexpand import braceexpand
 
-_Args = dict[str, Any]
+_Args = dict[str, pulumi.Input[Any]]
 
 
 def override_invoke(
@@ -39,7 +39,13 @@ def override_invoke(
                 continue
 
             # Transform invoke arguments
-            new_args = args_(cast(dict, args.args)) if callable(args_) else (args_ or {})
+            if TYPE_CHECKING:
+                assert isinstance(args.args, dict)
+
+            if callable(args_):  # noqa: SIM108
+                new_args = args_(args.args)
+            else:
+                new_args = args_ if args_ is not None else args.args
 
             # Transform invoke options
             new_opts = opts(args.opts) if callable(opts) else (opts or pulumi.InvokeOptions())

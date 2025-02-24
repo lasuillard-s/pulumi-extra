@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from fnmatch import fnmatch
 from itertools import chain
-from typing import Any, Callable, cast
+from typing import TYPE_CHECKING, Any, Callable
 
 import pulumi
 from braceexpand import braceexpand
 
-_Props = dict[str, Any]
+_Props = dict[str, pulumi.Input[Any]]
 
 
 def override_resource(
@@ -34,7 +34,13 @@ def override_resource(
                 continue
 
             # Transform resource properties
-            new_props = props(cast(dict, args.props)) if callable(props) else (props or {})
+            if TYPE_CHECKING:
+                assert isinstance(args.props, dict)
+
+            if callable(props):  # noqa: SIM108
+                new_props = props(args.props)
+            else:
+                new_props = props if props is not None else args.props
 
             # Transform resource options
             new_opts = opts(args.opts) if callable(opts) else (opts or pulumi.ResourceOptions())
