@@ -20,9 +20,6 @@ policy = ["pulumi-policy>=1,<2"]
 aws = ["pulumi-aws>=6"]
 gcp = ["pulumi-gcp>=8"]
 
-[project.scripts]
-"pulumi-extra" = "pulumi_extra.cli:main"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
