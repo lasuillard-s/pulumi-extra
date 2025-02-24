@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-import fnmatch
+from fnmatch import fnmatch
+from itertools import chain
 from typing import Any, Callable, cast
 
 import pulumi
@@ -28,9 +29,8 @@ def override_resource(
     def transform(args: pulumi.ResourceTransformArgs) -> pulumi.ResourceTransformResult | None:
         nonlocal props, opts
 
-        for rt_pattern in resource_types:
-            rt_expanded = braceexpand(rt_pattern)
-            if not any(fnmatch.fnmatch(args.type_, rt) for rt in rt_expanded):
+        for rt in chain.from_iterable(map(braceexpand, resource_types)):
+            if not fnmatch(args.type_, rt):
                 continue
 
             # Transform resource properties

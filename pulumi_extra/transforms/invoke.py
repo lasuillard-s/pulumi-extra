@@ -6,7 +6,8 @@ registering invoke transforms per-invoke basis.
 
 from __future__ import annotations
 
-import fnmatch
+from fnmatch import fnmatch
+from itertools import chain
 from typing import Any, Callable, cast
 
 import pulumi
@@ -33,9 +34,8 @@ def override_invoke(
     def transform(args: pulumi.InvokeTransformArgs) -> pulumi.InvokeTransformResult | None:
         nonlocal args_, opts
 
-        for it_pattern in invoke_tokens:
-            it_expanded = braceexpand(it_pattern)
-            if not any(fnmatch.fnmatch(args.token, it) for it in it_expanded):
+        for it in chain.from_iterable(map(braceexpand, invoke_tokens)):
+            if not fnmatch(args.token, it):
                 continue
 
             # Transform invoke arguments
