@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from functools import cache
+from itertools import chain
 from typing import Any, overload
 
 import pulumi
+from braceexpand import braceexpand
 
 
 @cache
@@ -65,9 +67,17 @@ def get_stack_outputs(  # type: ignore[misc]
     *refs: str,
     as_optional: bool = False,
 ) -> pulumi.Output[Any] | list[pulumi.Output[Any]]:
-    """Get outputs from a output reference shorthands (`"{stack}:{output}"`)."""
+    """Get outputs from a output reference shorthands. Supports brace expansion.
+
+    - Single output reference: (`"<stack_ref>:<output_key>"`).
+    - Multiple outputs using brace expansion: (`"<stack_ref>:{<output_key_1>,<output_key_2>}"`).
+
+    """
+    expand_refs = list(chain.from_iterable(map(braceexpand, refs)))
+    pulumi.debug(f"Expanded output references ({refs!r}): {expand_refs!r}")
+
     fqr: list[tuple] = []
-    for ref in refs:
+    for ref in expand_refs:
         stack_ref, output_key = _resolve_output_ref(ref)
         sr = get_stack_reference(stack_ref)
         fqr.append((sr, output_key))
@@ -81,6 +91,7 @@ def get_stack_outputs(  # type: ignore[misc]
 
     if len(outputs) == 1:
         return outputs[0]
+
     return outputs
 
 
