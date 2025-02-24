@@ -8,14 +8,21 @@ repos:
       - id: end-of-file-fixer
 
   - repo: https://github.com/lasuillard/pre-commit-hooks
-    rev: v0.3.0
+    rev: v0.4.1
     hooks:
-      - id: check-directory-structure
+      - id: source-matching-test
         args:
           - --source
           - pulumi_extra
+          - --create-if-not-exists
           - --extend-exclude
-          - '**/errors.py'
+          - "**/errors.py"
+      - id: test-matching-source
+        args:
+          - --target
+          - pulumi_extra
+      - id: preferred-suffix
+        args: [--rename]
 
   - repo: local
     hooks:
