@@ -74,7 +74,7 @@ def get_stack_outputs(  # type: ignore[misc]
 
     """
     expand_refs = list(chain.from_iterable(map(braceexpand, refs)))
-    pulumi.debug(f"Expanded output references ({refs!r}): {expand_refs!r}")
+    pulumi.log.debug(f"Expanded output references ({refs!r}): {expand_refs!r}")
 
     fqr: list[tuple] = []
     for ref in expand_refs:
