@@ -1,21 +1,27 @@
-from .provider import set_default_provider
 from .resource_ import get_resource_cls, resource_has_attribute
 from .shortcuts import get_stack_outputs, get_stack_reference
 from .template import render_template
-from .transform import (
-    apply_defaults,
-    override_invoke_provider,
-    override_resource_provider,
+from .transforms import (
+    override_default_provider,
+    override_invoke,
+    override_invoke_defaults,
+    override_invoke_options,
+    override_resource,
+    override_resource_defaults,
+    override_resource_options,
 )
 
 __all__ = (
-    "apply_defaults",
     "get_resource_cls",
     "get_stack_outputs",
     "get_stack_reference",
-    "override_invoke_provider",
-    "override_resource_provider",
+    "override_default_provider",
+    "override_invoke",
+    "override_invoke_defaults",
+    "override_invoke_options",
+    "override_resource",
+    "override_resource_defaults",
+    "override_resource_options",
     "render_template",
     "resource_has_attribute",
-    "set_default_provider",
 )

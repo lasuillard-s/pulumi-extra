@@ -1,0 +1,80 @@
+"""Pulumi invoke transforms.
+
+Invoke transforms should be register at the runtime level because Pulumi doesn't support
+registering invoke transforms per-invoke basis.
+"""
+
+from __future__ import annotations
+
+import fnmatch
+from typing import Any, Callable, cast
+
+import pulumi
+from braceexpand import braceexpand
+
+_Args = dict[str, Any]
+
+
+def override_invoke(
+    *invoke_tokens: str,
+    args: _Args | Callable[[_Args], _Args] | None = None,
+    opts: pulumi.InvokeOptions | Callable[[pulumi.InvokeOptions], pulumi.InvokeOptions] | None = None,
+) -> pulumi.InvokeTransform:
+    """Pulumi transform factory for invoke tokens (`get_*`).
+
+    Args:
+        *invoke_tokens: Invoke tokens to match. Supports glob patterns and brace expand.
+        args: Invoke arguments to override, or a callable that returns the new arguments from given `args.args` input.
+        opts: Invoke options to override, or a callable that returns the new options given `args.opts` input.
+
+    """
+    args_ = args
+
+    def transform(args: pulumi.InvokeTransformArgs) -> pulumi.InvokeTransformResult | None:
+        nonlocal args_, opts
+
+        for it_pattern in invoke_tokens:
+            it_expanded = braceexpand(it_pattern)
+            if not any(fnmatch.fnmatch(args.token, it) for it in it_expanded):
+                continue
+
+            # Transform invoke arguments
+            new_args = args_(cast(dict, args.args)) if callable(args_) else (args_ or {})
+
+            # Transform invoke options
+            new_opts = opts(args.opts) if callable(opts) else (opts or pulumi.InvokeOptions())
+            new_opts = pulumi.InvokeOptions.merge(args.opts, new_opts)
+
+            return pulumi.InvokeTransformResult(args=new_args, opts=new_opts)
+
+        return None
+
+    return transform
+
+
+def override_invoke_defaults(*invoke_tokens: str, defaults: dict[str, Any]) -> pulumi.InvokeTransform:
+    """Pulumi transform factory that provides default arguments to matching invoke tokens.
+
+    Args:
+        *invoke_tokens: Invoke tokens to match.
+        defaults: Default arguments.
+
+    """
+    return override_invoke(
+        *invoke_tokens,
+        args=lambda args: defaults | args,
+    )
+
+
+def override_invoke_options(*invoke_tokens: str, **options: Any) -> pulumi.InvokeTransform:
+    """Pulumi transform factory that overrides the invoke options for matching invoke tokens.
+
+    Args:
+        *invoke_tokens: Invoke tokens to match.
+        options: Arguments of `pulumi.InvokeOptions`.
+
+    """
+    return override_invoke(
+        *invoke_tokens,
+        opts=pulumi.InvokeOptions(**options),
+    )
