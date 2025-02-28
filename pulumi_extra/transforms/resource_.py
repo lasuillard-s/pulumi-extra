@@ -37,10 +37,10 @@ def override_resource(
             if TYPE_CHECKING:
                 assert isinstance(args.props, dict)
 
-            if callable(props):  # noqa: SIM108
+            if callable(props):
                 new_props = props(args.props)
             else:
-                new_props = props if props is not None else args.props
+                new_props = args.props | props if props is not None else args.props
 
             # Transform resource options
             new_opts = opts(args.opts) if callable(opts) else (opts or pulumi.ResourceOptions())

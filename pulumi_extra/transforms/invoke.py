@@ -45,7 +45,7 @@ def override_invoke(
             if callable(args_):  # noqa: SIM108
                 new_args = args_(args.args)
             else:
-                new_args = args_ if args_ is not None else args.args
+                new_args = args.args | args_ if args_ is not None else args.args
 
             # Transform invoke options
             new_opts = opts(args.opts) if callable(opts) else (opts or pulumi.InvokeOptions())
