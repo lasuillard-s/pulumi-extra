@@ -17,7 +17,7 @@ def override_resource(
     props: _Props | Callable[[_Props], _Props] | None = None,
     opts: pulumi.ResourceOptions | Callable[[pulumi.ResourceOptions], pulumi.ResourceOptions] | None = None,
 ) -> pulumi.ResourceTransform:
-    """Pulumi transform factory that overrides the provider for resources of given types.
+    """Pulumi transform factory for resources.
 
     Args:
         *resource_types: Resource types to match. Supports glob patterns and brace expand.
