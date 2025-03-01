@@ -1,6 +1,6 @@
 from .output import render_template
 from .resource_ import get_resource_cls, resource_has_attribute
-from .stack_reference import get_stack_outputs, get_stack_reference
+from .stack_reference import get_stack_outputs, get_stack_reference, re_export
 from .transforms import (
     override_default_provider,
     override_invoke,
@@ -22,6 +22,7 @@ __all__ = (
     "override_resource",
     "override_resource_defaults",
     "override_resource_options",
+    "re_export",
     "render_template",
     "resource_has_attribute",
 )
