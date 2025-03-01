@@ -31,7 +31,6 @@ def template(request: pytest.FixtureRequest) -> Iterator[Path | str]:
         yield _TEMPLATE
 
 
-@pulumi.runtime.test
 def test_render_template_context(template: Path | str) -> Any:
     """Render template with Python values."""
     # Arrange
@@ -42,10 +41,7 @@ def test_render_template_context(template: Path | str) -> Any:
     result = render_template(template, context={"image": image, "command": command})
 
     # Assert
-    def check(args: list[Any]) -> None:
-        assert args[0] == "docker run --detach busybox:latest echo 'Hello, World!'"
-
-    return pulumi.Output.all(result).apply(check)
+    assert result == "docker run --detach busybox:latest echo 'Hello, World!'"
 
 
 @pulumi.runtime.test
