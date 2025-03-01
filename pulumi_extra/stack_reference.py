@@ -65,32 +65,55 @@ def get_stack_outputs(
 
 def get_stack_outputs(  # type: ignore[misc]
     *refs: str,
-    as_optional: bool = False,
+    optional: bool = False,
 ) -> pulumi.Output[Any] | list[pulumi.Output[Any]]:
     """Get outputs from a output reference shorthands. Supports brace expansion.
 
     - Single output reference: (`"<stack_ref>:<output_key>"`).
     - Multiple outputs using brace expansion: (`"<stack_ref>:{<output_key_1>,<output_key_2>}"`).
 
+    Args:
+        *refs: Output references.
+        optional: Whether to treat the outputs as optional.
+
     """
+    outputs = _get_stack_outputs(*refs, optional=optional)
+    output_values = list(outputs.values())
+    if len(output_values) == 1:
+        return output_values[0]
+
+    return output_values
+
+
+def re_export(*refs: str, optional: bool = False) -> None:
+    """Re-export outputs from a output reference shorthands.
+
+    Args:
+        *refs: Output references.
+        optional: Whether to treat the outputs as optional.
+
+    """
+    outputs = _get_stack_outputs(*refs, optional=optional)
+    for (_, output_key), output in outputs.items():
+        pulumi.export(output_key, output)
+
+
+def _get_stack_outputs(*refs: str, optional: bool = False) -> dict[tuple[str, str], pulumi.Output[Any]]:
     expand_refs = list(chain.from_iterable(map(braceexpand, refs)))
     pulumi.log.debug(f"Expanded output references ({refs!r}): {expand_refs!r}")
 
     fqr: list[tuple] = []
     for ref in expand_refs:
         stack_ref, output_key = _resolve_output_ref(ref)
+        fqr.append((stack_ref, output_key))
+
+    outputs: dict[tuple[str, str], pulumi.Output[Any]] = {}
+    for stack_ref, output_key in fqr:
         sr = get_stack_reference(stack_ref)
-        fqr.append((sr, output_key))
-
-    outputs: list[pulumi.Output[Any]] = []
-    for sr, output_key in fqr:
-        if as_optional:
-            outputs.append(sr.get_output(output_key))
+        if optional:
+            outputs[(stack_ref, output_key)] = sr.get_output(output_key)
         else:
-            outputs.append(sr.require_output(output_key))
-
-    if len(outputs) == 1:
-        return outputs[0]
+            outputs[(stack_ref, output_key)] = sr.require_output(output_key)
 
     return outputs
 
