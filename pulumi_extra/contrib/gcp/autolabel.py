@@ -13,7 +13,7 @@ from .common import is_gcp_resource
 _NOT_LABELABLE_RESOURCES: set[str] = set()
 
 
-def register_auto_labeling(extra: dict[str, str] | None = None) -> None:
+def register_auto_labeling(*, extra: dict[str, str] | None = None) -> None:
     """Register a Pulumi stack transform that automatically labels resources.
 
     Args:

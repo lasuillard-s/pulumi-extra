@@ -16,7 +16,7 @@ _NOT_TAGGABLE_RESOURCES: set[str] = {
 }
 
 
-def register_auto_tagging(extra: dict[str, str] | None = None) -> None:
+def register_auto_tagging(*, extra: dict[str, str] | None = None) -> None:
     """Register a Pulumi stack transform that automatically tags resources.
 
     Args:
