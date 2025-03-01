@@ -16,9 +16,14 @@ _NOT_TAGGABLE_RESOURCES: set[str] = {
 }
 
 
-def register_auto_tagging() -> None:
-    """Register a Pulumi stack transform that automatically tags resources."""
+def register_auto_tagging(extra: dict[str, str] | None = None) -> None:
+    """Register a Pulumi stack transform that automatically tags resources.
+
+    Args:
+        extra: Extra tags to add.
+    """
     tags = {}
+    extra = extra or {}
 
     # Pulumi tags
     org = pulumi.get_organization()
@@ -32,6 +37,7 @@ def register_auto_tagging() -> None:
             "Managed-By": "Pulumi",
         },
     )
+    tags.update(extra)
 
     def transform(
         args: pulumi.ResourceTransformArgs,

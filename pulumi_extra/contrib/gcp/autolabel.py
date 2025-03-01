@@ -13,9 +13,14 @@ from .common import is_gcp_resource
 _NOT_LABELABLE_RESOURCES: set[str] = set()
 
 
-def register_auto_labeling() -> None:
-    """Register a Pulumi stack transform that automatically labels resources."""
+def register_auto_labeling(extra: dict[str, str] | None = None) -> None:
+    """Register a Pulumi stack transform that automatically labels resources.
+
+    Args:
+        extra: Extra labels to add.
+    """
     labels = {}
+    extra = extra or {}
 
     # Pulumi labels
     # NOTE: Labels transformed because of strict restrictions GCP enforces
@@ -30,6 +35,7 @@ def register_auto_labeling() -> None:
             "managed-by": "pulumi",
         },
     )
+    labels.update(extra)
 
     def transform(
         args: pulumi.ResourceTransformArgs,
