@@ -16,14 +16,20 @@ _NOT_TAGGABLE_RESOURCES: set[str] = {
 }
 
 
-def register_auto_tagging(*, extra: dict[str, str] | None = None) -> None:
+def register_auto_tagging(
+    *,
+    exclude: set[str] | None = None,
+    extra: dict[str, str] | None = None,
+) -> None:
     """Register a Pulumi stack transform that automatically tags resources.
 
     Args:
+        exclude: Resources to exclude from tagging.
         extra: Extra tags to add.
     """
     tags = {}
     extra = extra or {}
+    exclude = exclude or set()
 
     # Pulumi tags
     org = pulumi.get_organization()
@@ -42,7 +48,7 @@ def register_auto_tagging(*, extra: dict[str, str] | None = None) -> None:
     def transform(
         args: pulumi.ResourceTransformArgs,
     ) -> pulumi.ResourceTransformResult | None:
-        if is_taggable(args.type_):
+        if args.type_ not in exclude and is_taggable(args.type_):
             if TYPE_CHECKING:
                 assert isinstance(args.props, dict)
             args.props["tags"] = {

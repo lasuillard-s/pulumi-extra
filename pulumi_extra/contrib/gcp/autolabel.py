@@ -13,14 +13,20 @@ from .common import is_gcp_resource
 _NOT_LABELABLE_RESOURCES: set[str] = set()
 
 
-def register_auto_labeling(*, extra: dict[str, str] | None = None) -> None:
+def register_auto_labeling(
+    *,
+    exclude: set[str] | None = None,
+    extra: dict[str, str] | None = None,
+) -> None:
     """Register a Pulumi stack transform that automatically labels resources.
 
     Args:
+        exclude: Resources to exclude from labeling.
         extra: Extra labels to add.
     """
     labels = {}
     extra = extra or {}
+    exclude = exclude or set()
 
     # Pulumi labels
     # NOTE: Labels transformed because of strict restrictions GCP enforces
@@ -40,7 +46,7 @@ def register_auto_labeling(*, extra: dict[str, str] | None = None) -> None:
     def transform(
         args: pulumi.ResourceTransformArgs,
     ) -> pulumi.ResourceTransformResult | None:
-        if is_labelable(args.type_):
+        if args.type_ not in exclude and is_labelable(args.type_):
             if TYPE_CHECKING:
                 assert isinstance(args.props, dict)
             args.props["labels"] = {
