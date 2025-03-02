@@ -25,11 +25,6 @@ def mock_stack_reference() -> Iterator[mock.MagicMock]:
 
 
 class Test__get_stack_reference:
-    @pytest.fixture(autouse=True)
-    def reset_cache(self) -> None:
-        """Reset cache for each test."""
-        get_stack_reference.cache_clear()
-
     @pytest.mark.parametrize(
         ("ref", "expect"),
         [

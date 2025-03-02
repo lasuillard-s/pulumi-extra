@@ -6,6 +6,8 @@ from unittest import mock
 import pulumi
 import pytest
 
+from pulumi_extra import get_resource_cls, get_stack_reference, resource_has_attribute
+
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
@@ -30,3 +32,11 @@ def pulumi_organization() -> Iterator[None]:
     with mock.patch("pulumi.get_organization") as m:
         m.return_value = "organization"
         yield
+
+
+@pytest.fixture(autouse=True)
+def reset_cache() -> None:
+    """Reset cache for each test."""
+    resource_has_attribute.cache_clear()
+    get_resource_cls.cache_clear()
+    get_stack_reference.cache_clear()
