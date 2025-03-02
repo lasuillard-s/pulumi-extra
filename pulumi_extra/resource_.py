@@ -27,7 +27,7 @@ def resource_has_attribute(resource_type: str, attribute: str) -> bool:
     """Determine if a given GCP resource type is labelable."""
     cls = get_resource_cls(resource_type)
     if cls is None:
-        msg = f"Unable to resolve resource type {resource_type}"
+        msg = f"Unable to resolve resource type {resource_type!r}"
         raise UnknownResourceTypeError(msg)
 
     sig = signature(cls._internal_init)

@@ -16,6 +16,7 @@ test = [
 	"pytest-sugar~=1.0",
 	"pytest~=8.0",
 	"nox~=2024.10.9",
+	"pytest-xdist>=3.6.1",
 ]
 policy = ["pulumi-policy>=1,<2"]
 aws = ["pulumi-aws>=6"]
@@ -59,6 +60,10 @@ explicit_package_bases = true
 
 [tool.pytest.ini_options]
 addopts = [
+	# ? Some tests mutually exclusive and require fresh environments.
+	# ? So for now, we need at minimum 2 processes (see `tests/test_resource_.py` file).
+	"--numprocesses=2",
+	"--dist=loadgroup",
 	"--strict-markers",
 	"--doctest-modules",
 	"--cov",
