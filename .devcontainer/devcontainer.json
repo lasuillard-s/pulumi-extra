@@ -33,8 +33,5 @@
         "ms-python.debugpy"
       ]
     }
-  },
-  "containerEnv": {
-    "PYTHONPATH": "${containerWorkspaceFolder}"
   }
 }
