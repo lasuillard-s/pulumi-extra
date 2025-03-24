@@ -1,5 +1,7 @@
-class Order:
-    """Test run order keys for `pytest.mark.order`."""
+from typing import Any
 
-    BeforeRegistryInit = 100
-    AfterRegistryInit = 200
+from pulumi import automation
+
+
+def resolve_output_values(outputs: automation.OutputMap) -> dict[str, Any]:
+    return {k: v.value for k, v in outputs.items()}

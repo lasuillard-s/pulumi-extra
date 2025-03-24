@@ -46,7 +46,7 @@ lint:  ## Run all linters
 .PHONY: lint
 
 test:  ## Run tests
-	uv run pytest
+	uv run nox
 	uv run coverage html
 .PHONY: test
 
