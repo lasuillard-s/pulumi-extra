@@ -1,12 +1,12 @@
 from collections.abc import Iterator
 from pathlib import Path
-from typing import Any
 
 import pulumi
 import pytest
 from pulumi import automation
 
 from pulumi_extra import override_resource, override_resource_defaults
+from tests._helpers import resolve_output_values
 
 pytestmark = pytest.mark.integration
 
@@ -62,10 +62,7 @@ class Test__override_resource:
         outputs = pulumi_stack.outputs()
 
         # Assert
-        def _resolve_output_values(outputs: automation.OutputMap) -> dict[str, Any]:
-            return {k: v.value for k, v in outputs.items()}
-
-        assert _resolve_output_values(outputs) == {
+        assert resolve_output_values(outputs) == {
             "name": "busybox",
             "platform": "linux/amd64",  # Original default value is ""
         }
