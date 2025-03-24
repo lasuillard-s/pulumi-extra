@@ -66,3 +66,6 @@ class Test__override_resource:
             "name": "busybox",
             "platform": "linux/amd64",  # Original default value is ""
         }
+
+
+# TODO(lasuillard): `override_resource_options` has not been tested, currently I'm not aware of a way (inspect resource's options) to test it.  # noqa: E501
