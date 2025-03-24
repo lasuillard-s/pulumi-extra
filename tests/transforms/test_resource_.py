@@ -18,12 +18,7 @@ def pulumi_program() -> None:
         "busybox",
         opts=pulumi.ResourceOptions(
             transforms=[
-                override_resource_defaults(
-                    "*",
-                    defaults={
-                        "platform": "linux/amd64",
-                    },
-                ),
+                override_resource_defaults("*", defaults={"platform": "linux/amd64"}),
             ],
         ),
         name="busybox",
