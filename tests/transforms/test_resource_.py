@@ -31,6 +31,7 @@ def pulumi_program() -> None:
             ],
         ),
         name="busybox",
+        keep_locally=True,
     )
 
     for attr in ("name", "platform"):
