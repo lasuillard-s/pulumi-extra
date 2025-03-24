@@ -23,6 +23,11 @@ policy = ["pulumi-policy>=1,<2"]
 aws = ["pulumi-aws>=6"]
 gcp = ["pulumi-gcp>=8"]
 
+[project.urls]
+Homepage = "https://github.com/lasuillard/pulumi-extra"
+Repository = "https://github.com/lasuillard/pulumi-extra.git"
+Issues = "https://github.com/lasuillard/pulumi-extra/issues"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
