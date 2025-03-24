@@ -7,12 +7,8 @@ import pytest
 from pulumi import automation
 
 from pulumi_extra import override_resource_defaults
-from tests._helpers import Order
 
-pytestmark = [
-    pytest.mark.order(Order.AfterRegistryInit),
-    pytest.mark.integration,
-]
+pytestmark = pytest.mark.integration
 
 
 def pulumi_program() -> None:
