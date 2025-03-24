@@ -6,7 +6,7 @@ import pulumi
 import pytest
 from pulumi import automation
 
-from pulumi_extra import override_resource_defaults
+from pulumi_extra import override_resource, override_resource_defaults
 
 pytestmark = pytest.mark.integration
 
@@ -18,10 +18,15 @@ def pulumi_program() -> None:
         "busybox",
         opts=pulumi.ResourceOptions(
             transforms=[
+                # Modify default
                 override_resource_defaults("*", defaults={"platform": "linux/amd64"}),
+                # This will not have any effect (no match)
+                override_resource("_", props={"platform": "linux/arm64"}),
+                # Will modify argument
+                override_resource("*", props={"name": "busybox"}),
             ],
         ),
-        name="busybox",
+        name="scratch",
         keep_locally=True,
     )
 
