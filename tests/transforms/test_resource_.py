@@ -55,8 +55,8 @@ def pulumi_stack(tmpdir: Path) -> Iterator[automation.Stack]:
     stack.destroy(on_output=print, remove=True)
 
 
-# TODO(lasuillard): Test runtime breaks due to async loop conflicts; need per-test (at least thread level) isolation.
 class Test__override_resource:
+    @pytest.mark.forked
     def test(self, pulumi_stack: automation.Stack) -> None:
         # Arrange
         # ...
