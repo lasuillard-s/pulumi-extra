@@ -580,12 +580,12 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "braceexpand", specifier = "==0.1.7" },
+    { name = "braceexpand", specifier = ">=0.1.7,<1" },
     { name = "coverage", marker = "extra == 'test'", specifier = "~=7.3" },
-    { name = "jinja2", specifier = "==3.1.5" },
+    { name = "jinja2", specifier = ">=3,<4" },
     { name = "mypy", marker = "extra == 'dev'", specifier = "~=1.11" },
     { name = "nox", marker = "extra == 'test'", specifier = ">=2024.10.9,<2025.3.0" },
-    { name = "pulumi", specifier = "==3.153.1" },
+    { name = "pulumi", specifier = ">=3,<4" },
     { name = "pulumi-aws", marker = "extra == 'aws'", specifier = ">=6" },
     { name = "pulumi-docker", marker = "extra == 'test'", specifier = ">=4.6.1" },
     { name = "pulumi-gcp", marker = "extra == 'gcp'", specifier = ">=8" },
@@ -597,7 +597,7 @@ requires-dist = [
     { name = "pytest-sugar", marker = "extra == 'test'", specifier = "~=1.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = "~=0.6" },
 ]
-provides-extras = ["aws", "dev", "gcp", "policy", "test"]
+provides-extras = ["dev", "test", "policy", "aws", "gcp"]
 
 [[package]]
 name = "pulumi-gcp"

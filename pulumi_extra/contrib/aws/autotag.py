@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pulumi
-import pulumi_aws  # noqa: F401; Required to detect resources otherwise `is_taggable` will always return `False`
+import pulumi_aws  # noqa: F401 ; Required to detect resources otherwise `is_taggable` will always return `False`
 
 from pulumi_extra import resource_has_attribute
 
