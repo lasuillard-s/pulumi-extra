@@ -601,7 +601,7 @@ provides-extras = ["dev", "test", "policy", "aws", "gcp"]
 
 [[package]]
 name = "pulumi-gcp"
-version = "8.20.0"
+version = "8.28.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
@@ -609,9 +609,9 @@ dependencies = [
     { name = "semver" },
     { name = "typing-extensions", marker = "python_full_version < '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/db/ec/01a20af57cf22557472b4a62b6ed2cd18904ec11edbfb2d54e1a4585a3ea/pulumi_gcp-8.20.0.tar.gz", hash = "sha256:f785fcff522b2b455e58bb6d135a535388037227ea5711fe3bd81008598f67a6", size = 6938069, upload-time = "2025-02-20T04:26:48.831Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ac/64/a150bdbac15691ecbc8b41030d62dee5e5a05d462dad40e0e834bf9f1e49/pulumi_gcp-8.28.0.tar.gz", hash = "sha256:f5efc60053a4a0f9e36e8e9bda4ff3457e7524e7ee743b3c1b16ad476a558391", size = 7506125, upload-time = "2025-04-29T19:18:34.79Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0b/bf/253ac2a6f5631c590f82a7bbecadb83b4e4a2b45ef042ab191058c2c95c9/pulumi_gcp-8.20.0-py3-none-any.whl", hash = "sha256:0473b33a8d6e8e5f266da11244db5aff6ccbff56a781b100ca9b8ac17b492ef0", size = 8861212, upload-time = "2025-02-20T04:26:45.053Z" },
+    { url = "https://files.pythonhosted.org/packages/e9/5c/63e3dbbf7c45cd81b28e586cba85c937d555bf9f79baa56a5a90435f41be/pulumi_gcp-8.28.0-py3-none-any.whl", hash = "sha256:75298d607d3ce26e95bef9365552ca1733b610138873d06a34a6cc14d4a0f034", size = 9514029, upload-time = "2025-04-29T19:18:31.416Z" },
 ]
 
 [[package]]
