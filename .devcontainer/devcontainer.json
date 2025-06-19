@@ -10,7 +10,7 @@
   "overrideCommand": true,
   "workspaceFolder": "/workspaces/pulumi-extra",
   "features": {
-    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "onCreateCommand": "./.devcontainer/onCreateCommand.sh",
