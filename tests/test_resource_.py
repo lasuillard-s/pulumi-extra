@@ -10,7 +10,7 @@ class Test__resource_has_attribute:
     @pytest.mark.forked
     def test(self) -> None:
         # Arrange
-        import pulumi_random  # noqa: F401
+        import pulumi_random  # noqa: F401, PLC0415
 
         # Act & Assert
         assert resource_has_attribute("random:index/randomId:RandomId", "byte_length") is True
@@ -33,7 +33,7 @@ class Test__get_resource_cls:
     @pytest.mark.forked
     def test(self) -> None:
         # Arrange
-        import pulumi_random  # noqa: F401
+        import pulumi_random  # noqa: F401, PLC0415
 
         # Act
         cls = get_resource_cls("random:index/randomId:RandomId")

@@ -12,7 +12,7 @@ pytestmark = pytest.mark.integration
 
 
 def pulumi_program() -> None:
-    import pulumi_docker as docker
+    import pulumi_docker as docker  # noqa: PLC0415
 
     busybox = docker.RemoteImage(
         "busybox",
