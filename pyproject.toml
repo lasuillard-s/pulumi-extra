@@ -9,6 +9,11 @@ requires-python = ">=3.9, <4.0"
 dependencies = ["braceexpand>=0.1.7,<1", "jinja2>=3,<4", "pulumi>=3,<4"]
 
 [project.optional-dependencies]
+policy = ["pulumi-policy>=1,<2"]
+aws = ["pulumi-aws>=6"]
+gcp = ["pulumi-gcp>=8"]
+
+[dependency-groups]
 dev = ["mypy~=1.11", "ruff~=0.6"]
 test = [
 	"coverage~=7.3",
@@ -20,9 +25,6 @@ test = [
 	"pulumi-docker>=4.6.1",
 	"pytest-forked>=1.6.0",
 ]
-policy = ["pulumi-policy>=1,<2"]
-aws = ["pulumi-aws>=6"]
-gcp = ["pulumi-gcp>=8"]
 
 [project.urls]
 Homepage = "https://github.com/lasuillard/pulumi-extra"
@@ -32,6 +34,9 @@ Issues = "https://github.com/lasuillard/pulumi-extra/issues"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.uv]
+default-groups = ["dev", "test"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["pulumi_extra"]
@@ -77,9 +82,7 @@ addopts = [
 	"-rs",
 ]
 testpaths = ["tests"]
-markers = [
-	"integration: mark a test as an integration test",
-]
+markers = ["integration: mark a test as an integration test"]
 
 [tool.coverage.run]
 include = ["pulumi_extra/*"]

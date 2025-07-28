@@ -570,15 +570,17 @@ dependencies = [
 aws = [
     { name = "pulumi-aws" },
 ]
-dev = [
-    { name = "mypy" },
-    { name = "ruff" },
-]
 gcp = [
     { name = "pulumi-gcp" },
 ]
 policy = [
     { name = "pulumi-policy" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "ruff" },
 ]
 test = [
     { name = "coverage" },
@@ -594,23 +596,29 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "braceexpand", specifier = ">=0.1.7,<1" },
-    { name = "coverage", marker = "extra == 'test'", specifier = "~=7.3" },
     { name = "jinja2", specifier = ">=3,<4" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = "~=1.11" },
-    { name = "nox", marker = "extra == 'test'", specifier = ">=2024.10.9,<2025.3.0" },
     { name = "pulumi", specifier = ">=3,<4" },
     { name = "pulumi-aws", marker = "extra == 'aws'", specifier = ">=6" },
-    { name = "pulumi-docker", marker = "extra == 'test'", specifier = ">=4.6.1" },
     { name = "pulumi-gcp", marker = "extra == 'gcp'", specifier = ">=8" },
     { name = "pulumi-policy", marker = "extra == 'policy'", specifier = ">=1,<2" },
-    { name = "pulumi-random", marker = "extra == 'test'", specifier = ">=4.18.0" },
-    { name = "pytest", marker = "extra == 'test'", specifier = "~=8.0" },
-    { name = "pytest-cov", marker = "extra == 'test'", specifier = ">=5,<7" },
-    { name = "pytest-forked", marker = "extra == 'test'", specifier = ">=1.6.0" },
-    { name = "pytest-sugar", marker = "extra == 'test'", specifier = "~=1.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = "~=0.6" },
 ]
-provides-extras = ["dev", "test", "policy", "aws", "gcp"]
+provides-extras = ["policy", "aws", "gcp"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = "~=1.11" },
+    { name = "ruff", specifier = "~=0.6" },
+]
+test = [
+    { name = "coverage", specifier = "~=7.3" },
+    { name = "nox", specifier = ">=2024.10.9,<2025.3.0" },
+    { name = "pulumi-docker", specifier = ">=4.6.1" },
+    { name = "pulumi-random", specifier = ">=4.18.0" },
+    { name = "pytest", specifier = "~=8.0" },
+    { name = "pytest-cov", specifier = ">=5,<7" },
+    { name = "pytest-forked", specifier = ">=1.6.0" },
+    { name = "pytest-sugar", specifier = "~=1.0" },
+]
 
 [[package]]
 name = "pulumi-gcp"
