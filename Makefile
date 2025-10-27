@@ -30,7 +30,7 @@ update:  ## Update deps and tools
 
 serve-docs:  ## Serve documentation with live reload
 	uv run mkdocs serve \
-		--dev-addr "$$([ ! -z "$${CONTAINER:-}" ] && echo '0.0.0.0:8000' || echo '127.0.0.1:8000')"
+		--dev-addr "$$([ -n "$${CONTAINER:-}" ] && echo '0.0.0.0:8000' || echo '127.0.0.1:8000')"
 .PHONY: serve-docs
 
 
