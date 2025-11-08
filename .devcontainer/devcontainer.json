@@ -1,5 +1,5 @@
 {
-  "name": "lasuillard/pulumi-extra",
+  "name": "lasuillard-s/pulumi-extra",
   "dockerComposeFile": [
     "./docker-compose.devcontainer.yaml"
   ],
