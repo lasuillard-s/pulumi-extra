@@ -29,6 +29,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2.4.1
         with:
+          tag_name: ${{ github.event.release.tag_name }}
           generate_release_notes: true
           files: dist/*
 
@@ -44,12 +45,12 @@ jobs:
   publish-pypi:
     needs: release
     runs-on: ubuntu-latest
+    environment: pypi
     timeout-minutes: 5
     permissions:
       id-token: write
-    environment: pypi
     steps:
-      - name: Retrieve release distributions
+      - name: Download release distributions
         uses: actions/download-artifact@v6
         with:
           name: release-dists
@@ -60,3 +61,5 @@ jobs:
 
       - name: Publish release distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
