@@ -68,7 +68,7 @@ class Test__render_template:
         # ...
 
         # Act & Assert
-        with pytest.raises(ValueError, match="Either context or input must be provided."):
+        with pytest.raises(ValueError, match=r"Either context or input must be provided."):
             render_template(  # type: ignore[call-overload]
                 "docker run --detach {{ image }} {{ command }}",
                 context={"don't-care": "yes"},

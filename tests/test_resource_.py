@@ -24,7 +24,7 @@ class Test__resource_has_attribute:
         # Act & Assert
         with pytest.raises(
             UnknownResourceTypeError,
-            match="Unable to resolve resource type 'random:unknown/unknown:Unknown'",
+            match=r"Unable to resolve resource type 'random:unknown/unknown:Unknown'",
         ):
             resource_has_attribute("random:unknown/unknown:Unknown", "whatever")
 
