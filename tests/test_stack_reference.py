@@ -52,7 +52,7 @@ class Test__get_stack_reference:
         # ...
 
         # Act & Assert
-        with pytest.raises(ValueError, match="Invalid stack reference: 'organization/project/dev/extra'"):
+        with pytest.raises(ValueError, match=r"Invalid stack reference: 'organization/project/dev/extra'"):
             get_stack_reference("organization/project/dev/extra")
 
 
@@ -84,7 +84,7 @@ class Test__get_stack_outputs:
         # ...
 
         # Act & Assert
-        with pytest.raises(ValueError, match="Invalid output reference: ':output'"):
+        with pytest.raises(ValueError, match=r"Invalid output reference: ':output'"):
             get_stack_outputs(":output")
 
 
