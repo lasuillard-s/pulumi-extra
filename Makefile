@@ -29,7 +29,7 @@ update:  ## Update deps and tools
 .PHONY: update
 
 serve-docs:  ## Serve documentation with live reload
-	uv run mkdocs serve \
+	uv run mike serve \
 		--dev-addr "$$([ -n "$${CONTAINER:-}" ] && echo '0.0.0.0:8000' || echo '127.0.0.1:8000')"
 .PHONY: serve-docs
 
@@ -54,10 +54,6 @@ test:  ## Run tests
 	uv run nox
 	uv run coverage html
 .PHONY: test
-
-docs:  ## Build documentation
-	uv run mkdocs build
-.PHONY: docs
 
 
 # =============================================================================
