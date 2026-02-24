@@ -1,4 +1,6 @@
 # noqa: D100
+from fnmatch import fnmatch
+
 import pulumi_policy as policy
 
 from pulumi_extra.contrib.gcp import is_gcp_resource, is_labelable
@@ -13,8 +15,15 @@ class RequireLabels:
         report_violation: policy.ReportViolation,
     ) -> None:
         config = args.get_config()
-        required_labels = config["required-labels"]
-        if not required_labels or not is_gcp_resource(args.resource_type):
+        exclude = set(config.get("exclude", []))
+        required_labels = set(config["required-labels"])
+        if any(fnmatch(args.resource_type, pattern) for pattern in exclude):
+            return
+
+        if not required_labels:
+            return
+
+        if not is_gcp_resource(args.resource_type):
             return
 
         if is_labelable(args.resource_type):
@@ -32,6 +41,10 @@ require_labels = policy.ResourceValidationPolicy(
     description="Require specific labels on resources",
     config_schema=policy.PolicyConfigSchema(
         properties={
+            "exclude": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
             "required-labels": {
                 "type": "array",
                 "items": {"type": "string"},

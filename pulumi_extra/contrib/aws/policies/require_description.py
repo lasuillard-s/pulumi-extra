@@ -1,4 +1,6 @@
 # noqa: D100
+from fnmatch import fnmatch
+
 import pulumi_policy as policy
 
 from pulumi_extra import resource_has_attribute
@@ -31,6 +33,11 @@ class RequireDescription:
         args: policy.ResourceValidationArgs,
         report_violation: policy.ReportViolation,
     ) -> None:
+        config = args.get_config()
+        exclude = set(config.get("exclude", []))
+        if any(fnmatch(args.resource_type, pattern) for pattern in exclude):
+            return
+
         if not is_aws_resource(args.resource_type):
             return
 
@@ -54,7 +61,12 @@ require_description = policy.ResourceValidationPolicy(
     name="aws:require-description",
     description="Require description (or tag if unsupported) on resources",
     config_schema=policy.PolicyConfigSchema(
-        properties={},
+        properties={
+            "exclude": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+        },
     ),
     validate=RequireDescription(),
 )
