@@ -20,29 +20,34 @@ def register_auto_tagging(
     *,
     exclude: set[str] | None = None,
     extra: dict[str, str] | None = None,
+    no_default_tags: bool = False,
 ) -> None:
     """Register a Pulumi stack transform that automatically tags resources.
 
     Args:
         exclude: Resources to exclude from tagging.
         extra: Extra tags to add.
+        no_default_tags: If `True`, do not add default tags;
+            pulumi:Organization, pulumi:Project, pulumi:Stack, Managed-By.
     """
     tags = {}
     extra = extra or {}
     exclude = exclude or set()
 
     # Pulumi tags
-    org = pulumi.get_organization()
-    project = pulumi.get_project()
-    stack = pulumi.get_stack()
-    tags.update(
-        {
-            "pulumi:Organization": org,
-            "pulumi:Project": project,
-            "pulumi:Stack": stack,
-            "Managed-By": "Pulumi",
-        },
-    )
+    if not no_default_tags:
+        org = pulumi.get_organization()
+        project = pulumi.get_project()
+        stack = pulumi.get_stack()
+        tags.update(
+            {
+                "pulumi:Organization": org,
+                "pulumi:Project": project,
+                "pulumi:Stack": stack,
+                "Managed-By": "Pulumi",
+            },
+        )
+
     tags.update(extra)
 
     def transform(
