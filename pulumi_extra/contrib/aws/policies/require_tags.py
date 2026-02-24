@@ -1,13 +1,34 @@
 # noqa: D100
+from __future__ import annotations
+
 from fnmatch import fnmatch
+from typing import TYPE_CHECKING, Any, TypedDict
 
 import pulumi_policy as policy
 
 from pulumi_extra.contrib.aws import is_aws_resource, is_taggable
 
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+
+
+class RequireTagsConfig(TypedDict):
+    """Configuration schema for RequireTags policy."""
+
+    exclude: set[str]
+    """Resource types to exclude from this policy. Supports glob patterns."""
+
+    required_tags: set[str]
+    """The set of required tags."""
+
 
 class RequireTags:
     """Policy validator to require specific tags on resources."""
+
+    def _load_config(self, config: Mapping[str, Any]) -> RequireTagsConfig:
+        exclude = set(config.get("exclude", []))
+        required_tags = set(config.get("required-tags", []))
+        return RequireTagsConfig(exclude=exclude, required_tags=required_tags)
 
     def __call__(  # noqa: D102
         self,
