@@ -24,7 +24,15 @@ if TYPE_CHECKING:
 
 @cache
 def resource_has_attribute(resource_type: str, attribute: str) -> bool:
-    """Determine if a given GCP resource type is labelable."""
+    """Check if a Pulumi resource type has a given attribute.
+
+    Args:
+        resource_type: Resource type to check.
+        attribute: Attribute to check for.
+
+    Returns:
+        `True` if the resource type has the attribute, otherwise `False`.
+    """
     cls = get_resource_cls(resource_type)
     if cls is None:
         msg = f"Unable to resolve resource type {resource_type!r}"
