@@ -17,30 +17,35 @@ def register_auto_labeling(
     *,
     exclude: set[str] | None = None,
     extra: dict[str, str] | None = None,
+    no_default_labels: bool = False,
 ) -> None:
     """Register a Pulumi stack transform that automatically labels resources.
 
     Args:
         exclude: Resources to exclude from labeling.
         extra: Extra labels to add.
+        no_default_labels: If `True`, do not add default Pulumi labels;
+            pulumi-Organization, pulumi-Project, pulumi-Stack, managed-by.
     """
     labels = {}
     extra = extra or {}
     exclude = exclude or set()
 
     # Pulumi labels
-    # NOTE: Labels transformed because of strict restrictions GCP enforces
-    org = pulumi.get_organization()
-    project = pulumi.get_project()
-    stack = pulumi.get_stack()
-    labels.update(
-        {
-            "pulumi-organization": org,
-            "pulumi-project": project.replace(".", "-"),
-            "pulumi-stack": stack,
-            "managed-by": "pulumi",
-        },
-    )
+    # NOTE: Labels need transformation because of strict GCP restrictions
+    if not no_default_labels:
+        org = pulumi.get_organization()
+        project = pulumi.get_project()
+        stack = pulumi.get_stack()
+        labels.update(
+            {
+                "pulumi-organization": org,
+                "pulumi-project": project.replace(".", "-"),
+                "pulumi-stack": stack,
+                "managed-by": "pulumi",
+            },
+        )
+
     labels.update(extra)
 
     def transform(
