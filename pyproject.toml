@@ -1,6 +1,6 @@
 [project]
 name = "pulumi-extra"
-description = "Extra Pulumi utils and resources."
+description = "Extra Pulumi utils and resources for Python runtime."
 version = "0.1.6"
 authors = [{ name = "Yuchan Lee", email = "lasuillard@gmail.com" }]
 readme = "README.md"
