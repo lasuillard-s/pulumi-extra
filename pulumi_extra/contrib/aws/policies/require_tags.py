@@ -35,13 +35,12 @@ class RequireTags:
         args: policy.ResourceValidationArgs,
         report_violation: policy.ReportViolation,
     ) -> None:
-        config = args.get_config()
-        exclude = set(config.get("exclude", []))
-        required_tags = set(config["required-tags"])
-        if any(fnmatch(args.resource_type, pattern) for pattern in exclude):
+        config = self._load_config(args.get_config())
+
+        if any(fnmatch(args.resource_type, pattern) for pattern in config["exclude"]):
             return
 
-        if not required_tags:
+        if not config["required_tags"]:
             return
 
         if not is_aws_resource(args.resource_type):
@@ -49,7 +48,7 @@ class RequireTags:
 
         if is_taggable(args.resource_type):
             tags = args.props.get("tags", {})
-            for rt in required_tags:
+            for rt in config["required_tags"]:
                 if not tags or rt not in tags:
                     report_violation(
                         f"Resource '{args.urn}' is missing required tag '{rt}'",
