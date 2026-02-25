@@ -25,7 +25,7 @@ def register_auto_labeling(
         exclude: Resources to exclude from labeling.
         extra: Extra labels to add.
         no_default_labels: If `True`, do not add default Pulumi labels;
-            pulumi-Organization, pulumi-Project, pulumi-Stack, managed-by.
+            pulumi-organization, pulumi-project, pulumi-stack, managed-by.
     """
     labels = {}
     extra = extra or {}
