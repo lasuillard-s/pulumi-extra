@@ -1,6 +1,6 @@
 services:
   workspace:
-    image: mcr.microsoft.com/devcontainers/python:3.13-trixie
+    image: mcr.microsoft.com/devcontainers/base:trixie
     volumes:
       - pulumi:/home/vscode/.pulumi
       - cache:/home/vscode/.cache:delegated
