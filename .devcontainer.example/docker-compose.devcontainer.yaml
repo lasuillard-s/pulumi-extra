@@ -1,9 +1,7 @@
 services:
   workspace:
-    build:
-      context: .
+    image: mcr.microsoft.com/devcontainers/python:3.13-trixie
     volumes:
-      - ..:/workspaces/pulumi-extra
       - pulumi:/home/vscode/.pulumi
       - cache:/home/vscode/.cache:delegated
     healthcheck:
