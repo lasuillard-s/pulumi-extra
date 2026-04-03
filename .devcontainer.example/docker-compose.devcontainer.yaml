@@ -4,6 +4,8 @@ services:
     volumes:
       - pulumi:/home/vscode/.pulumi
       - cache:/home/vscode/.cache:delegated
+    environment:
+      CONTAINER: 1
     healthcheck:
       disable: true
 
