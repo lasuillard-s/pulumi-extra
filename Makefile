@@ -20,8 +20,11 @@ help: Makefile  ## Show help
 install:  ## Install deps
 	uv python install
 	uv sync --frozen --all-extras
-	pre-commit install --install-hooks
 .PHONY: install
+
+init:  ## Initialize project
+	pre-commit install --install-hooks
+.PHONY: init
 
 update:  ## Update deps and tools
 	uv sync --upgrade --all-extras
@@ -40,10 +43,13 @@ serve-docs:  ## Serve documentation with live reload
 ci: lint test  ## Run CI tasks
 .PHONY: ci
 
-format:  ## Run autoformatters
-	uv run ruff check --fix .
+fmt:  ## Run autoformatters
 	uv run ruff format .
-.PHONY: format
+.PHONY: fmt
+
+fix:  ## Autofix issues
+	uv run ruff check --fix .
+.PHONY: fix
 
 lint:  ## Run all linters
 	uv run ruff check .
