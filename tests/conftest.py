@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Any
 from unittest import mock
 
@@ -18,6 +19,23 @@ class ResourceMocks(pulumi.runtime.Mocks):
 
     def call(self, args: pulumi.runtime.MockCallArgs) -> Any:  # noqa: ARG002
         return {}
+
+
+@pytest.fixture(scope="module", autouse=True)
+def set_event_loop() -> Iterator[asyncio.AbstractEventLoop]:
+    """Get or create an event loop.
+
+    Workaround for `RuntimeError: There is no current event loop in thread 'MainThread'`
+    caused by Python 3.14+ changes in asyncio.
+    """
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+
+    asyncio.set_event_loop(loop)
+    yield loop
+    loop.close()
 
 
 @pytest.fixture(autouse=True)
