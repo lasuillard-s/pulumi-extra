@@ -5,7 +5,7 @@ version = "0.2.0"
 authors = [{ name = "Yuchan Lee", email = "lasuillard@gmail.com" }]
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.9, <4.0"
+requires-python = ">=3.10, <4.0"
 dependencies = ["braceexpand>=0.1.7,<1", "jinja2>=3,<4", "pulumi>=3,<4"]
 
 [project.optional-dependencies]

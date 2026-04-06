@@ -21,7 +21,7 @@ def pulumi_program() -> None:
         # This will not have any effect (no match)
         override_invoke("_", args={"insecure_skip_verify": False}),
         # Will override argument
-        override_invoke("*", args={"name": "busybox"}),
+        override_invoke("*", args={"name": "mcr.microsoft.com/devcontainers/base"}),
     ]
     for it in invoke_transforms:
         pulumi.runtime.register_invoke_transform(it)
@@ -61,7 +61,7 @@ class Test__override_invoke:
 
         # Assert
         assert resolve_output_values(outputs) == {
-            "name": "busybox",
+            "name": "mcr.microsoft.com/devcontainers/base",
             "insecure_skip_verify": True,
         }
 

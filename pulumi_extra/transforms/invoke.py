@@ -8,10 +8,13 @@ from __future__ import annotations
 
 from fnmatch import fnmatch
 from itertools import chain
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 import pulumi
 from braceexpand import braceexpand
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 _Args = dict[str, pulumi.Input[Any]]
 
