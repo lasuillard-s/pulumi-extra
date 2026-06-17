@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from unittest import mock
+
 import pytest
 
 from pulumi_extra import get_resource_cls, resource_has_attribute
@@ -7,7 +9,6 @@ from pulumi_extra.errors import UnknownResourceTypeError
 
 
 class Test__resource_has_attribute:
-    @pytest.mark.forked
     def test(self) -> None:
         # Arrange
         import pulumi_random  # noqa: F401, PLC0415
@@ -30,7 +31,6 @@ class Test__resource_has_attribute:
 
 
 class Test__get_resource_cls:
-    @pytest.mark.forked
     def test(self) -> None:
         # Arrange
         import pulumi_random  # noqa: F401, PLC0415
@@ -42,14 +42,11 @@ class Test__get_resource_cls:
         assert cls is not None
         assert f"{cls.__module__}.{cls.__name__}" == "pulumi_random.random_id.RandomId"
 
-    @pytest.mark.forked
     def test_registry_not_initialized(self) -> None:
         """If registry not initialized, it will return `None`."""
-        # Arrange
-        # ...
-
-        # Act & Assert
-        assert get_resource_cls("random:index/randomId:RandomId") is None
+        with mock.patch("pulumi_extra.resource_._get_resources") as m:
+            m.return_value = []
+            assert get_resource_cls("random:index/randomId:RandomId") is None
 
     def test_unknown_resource_type(self) -> None:
         # Arrange
