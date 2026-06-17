@@ -29,7 +29,6 @@ This project uses the following tech stack:
 - `docs/`: Project documentation
 - `pulumi_extra/`: The project's Python package source code
 - `tests/`: Project tests and nox test sessions
-- `.devcontainer.example/`: Example Dev Container configuration
 - `flake.nix`: Nix Flakes development environment
 - `Justfile`: Commands for development
 - `mkdocs.yaml`: Documentation configuration
