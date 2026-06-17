@@ -51,7 +51,7 @@ def pulumi_stack(tmpdir: Path) -> Iterator[automation.Stack]:
 
 
 class Test__override_invoke:
-    @pytest.mark.forked
+    @pytest.mark.isolate
     def test(self, pulumi_stack: automation.Stack) -> None:
         # Arrange
         # ...
