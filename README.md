@@ -10,7 +10,7 @@ Extra Pulumi utilities and resources for the Python runtime.
 
 - Shortcuts for working with Pulumi resources, such as transforms, stack references, and template rendering
 - Pulumi transforms to automatically tag (AWS) or label (GCP) resources
-- Pulumi policies to require description (or label if unsupported) on resources (both AWS and GCP)
+- Pulumi policies to require description (or tag/label if unsupported) on resources (both AWS and GCP)
 
 ## 🚀 Quick start
 
