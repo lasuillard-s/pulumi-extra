@@ -17,14 +17,6 @@ alias up := update
 # Development
 # =============================================================================
 
-# Build this project
-build:
-    uv build
-
-# Start local documentation server
-docs:
-    uv run mkdocs serve
-
 # Run all checks
 ci: lint test
 
@@ -34,11 +26,6 @@ format:
 
 alias fmt := format
 
-# Apply autofixes
-fix:
-    uv run ruff check --fix .
-    uv run ruff format .
-
 # Run all linters
 lint:
     uv run ruff check .
@@ -47,6 +34,19 @@ lint:
 # Run all tests
 test:
     uv run nox
+
+# Apply autofixes
+fix:
+    uv run ruff check --fix .
+    uv run ruff format .
+
+# Build this project
+build:
+    uv build
+
+# Start local documentation server
+docs:
+    uv run mkdocs serve
 
 # =============================================================================
 # Utility
