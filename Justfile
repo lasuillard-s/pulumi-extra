@@ -41,7 +41,6 @@ fix:
 
 # Run all linters
 lint:
-    uv run ruff format --check .
     uv run ruff check .
     uv run mypy --show-error-codes --pretty .
 
