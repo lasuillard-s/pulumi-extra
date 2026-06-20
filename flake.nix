@@ -29,7 +29,7 @@
             just
             uv
             fixedPipx
-            pulumi-bin
+            pulumi
           ];
           shellHook = ''
             pre-commit install
