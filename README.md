@@ -23,8 +23,7 @@ from pulumi_extra.contrib.gcp import register_auto_labeling
 register_auto_labeling()
 register_auto_tagging()
 
-... # Define your resources
-
+...  # Define your resources
 ```
 
 To use policies, add the following to your policy module entrypoint (for example, `policy/__main__.py`):

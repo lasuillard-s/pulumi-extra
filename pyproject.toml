@@ -17,16 +17,16 @@ gcp = ["pulumi-gcp>=8"]
 dev = [
   "mike==2.2.0",
   "mkdocs==1.6.1",
-  "mkdocs-material==9.7.6",
-  "mkdocstrings[python]==1.0.4",
-  "mypy==2.1.0",
-  "ruff==0.15.20",
-  "coverage==7.15.0",
+  "mkdocs-material==9.7.7",
+  "mkdocstrings[python]==1.0.6",
+  "mypy==2.3.0",
+  "ruff==0.16.1",
+  "coverage==7.15.2",
   "pytest-cov>=7,<8",
   "pytest-sugar==1.1.1",
   "pytest==9.1.1",
-  "nox==2026.4.10",
-  "pulumi-random==4.21.0",
+  "nox==2026.7.11",
+  "pulumi-random==4.21.1",
   "pulumi-docker==5.1.0",
 ]
 
@@ -48,6 +48,7 @@ lint.select = ["ALL"]
 lint.ignore = [
   "ANN401",
   "COM812", # Formatting conflict
+  "CPY",
   "D105",
   "FIX002",
   "TD003",
