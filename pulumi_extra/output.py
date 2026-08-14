@@ -49,7 +49,7 @@ def render_template(
 
     # Render with Python values.
     if context is not None and inputs is None:
-        return jinja_tpl.render(context)
+        return str(jinja_tpl.render(context))
 
     # Render with Pulumi inputs.
     if context is None and inputs is not None:
