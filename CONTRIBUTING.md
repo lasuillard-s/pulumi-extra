@@ -46,7 +46,6 @@ This repository uses [Nix Flakes](https://nix.dev/concepts/flakes.html) to manag
 - `pre-commit`
 - `just`
 - `uv`
-- `pipx`
 - Pulumi CLI (`pulumi`)
 
 Simply run `nix develop` to enter the development environment, then run `just install` to install dependencies. The Nix shell also installs the pre-commit hooks automatically.
