@@ -18,15 +18,15 @@ dev = [
   "mike==2.2.0",
   "mkdocs==1.6.1",
   "mkdocs-material==9.7.7",
-  "mkdocstrings[python]==1.0.6",
+  "mkdocstrings[python]==1.0.7",
   "mypy==2.4.0",
-  "ruff==0.16.10",
+  "ruff==0.17.1",
   "coverage==7.16.2",
   "pytest-cov>=7,<8",
   "pytest-sugar==1.1.1",
   "pytest==9.1.1",
   "nox==2026.8.17",
-  "pulumi-random==4.21.2",
+  "pulumi-random==4.21.4",
   "pulumi-docker==5.2.0",
 ]
 
