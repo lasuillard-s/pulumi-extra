@@ -17,16 +17,16 @@ gcp = ["pulumi-gcp>=8"]
 dev = [
   "mike==2.2.0",
   "mkdocs==1.6.1",
-  "mkdocs-material==9.7.7",
-  "mkdocstrings[python]==1.0.6",
+  "mkdocs-material==9.8.0",
+  "mkdocstrings[python]==1.0.8",
   "mypy==2.4.0",
-  "ruff==0.16.10",
-  "coverage==7.16.2",
+  "ruff==0.17.2",
+  "coverage==7.17.0",
   "pytest-cov>=7,<8",
   "pytest-sugar==1.1.1",
   "pytest==9.1.1",
-  "nox==2026.8.17",
-  "pulumi-random==4.21.2",
+  "nox==2026.10.20",
+  "pulumi-random==4.21.4",
   "pulumi-docker==5.2.0",
 ]
 
