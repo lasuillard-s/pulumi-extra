@@ -18,7 +18,7 @@ This project provides extra utilities and resources for Pulumi Python programs.
 
 This project uses the following tech stack:
 
-- [Python](https://www.python.org) 3.10+
+- [Python](https://www.python.org) 3.11+
 - [uv](https://docs.astral.sh/uv/) for dependency management and packaging
 - [Ruff](https://docs.astral.sh/ruff/) to format and lint Python code, and [Mypy](https://mypy-lang.org) for type checking
 - [pytest](https://docs.pytest.org/en/latest) and [nox](https://nox.thea.codes/en/stable/) for testing
