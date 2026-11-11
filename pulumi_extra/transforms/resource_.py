@@ -67,6 +67,8 @@ def override_resource_defaults(
         defaults: Default properties.
 
     """
+    # NOTE: Pulumi may convert user-provided keys to camelCase (e.g. `hasIssues`) before transforms run,
+    #       so snake_case defaults can duplicate them; use keys in the same form as the resource's props.
     return override_resource(
         *resource_types,
         props=lambda props: defaults | props,
