@@ -67,6 +67,9 @@ jobs:
       - name: Set Python version
         run: uv python pin "${{ matrix.python-version }}"
 
+      - name: Set up Pulumi
+        uses: pulumi/actions@96c7761824268174e0d2a4e8c7d75671eebd24a7 # v7.1.0
+
       - name: Install deps
         run: uv sync
 
